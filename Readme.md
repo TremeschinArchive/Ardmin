@@ -37,16 +37,11 @@ Options:
 ```
 
 Apply all optimizations possible:
-- `./ardmin -p ~/AudioLabs/ArdourSessions -a`
+- `./ardmin -p ~/Path/To/Ardour/Sessions -a`
 
+Apply only states and unused optimizations:
+- `./ardmin -p ~/Path/To/Ardour/Sessions -s -u`
 
+# ● License
 
-<br>
-
-# ● Licenses / Licensing
-
-## ⏵ Code
-**Currently all code is PROPRIETARY, no copying allowed, only reading if I gave you personally access or the repo itself**
-
-**The files and root license says AGPLv3-only because this project will be open source in the future.**
-
+MIT License.
