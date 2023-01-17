@@ -14,31 +14,31 @@ Ardmin, an Ardour Session Minimizer.
 #[derive(Parser, Debug)]
 #[command(author="Tremeschin", version, about=ABOUT)]
 struct Args {
-    #[arg(short, long, help="· (Global      ) Path to a Folder of Sessions")]
+    #[arg(short, long, help="(Global      ) Path to a Folder of Sessions")]
     path: String,
 
     // Exports
-    #[arg(       long, help="· (Global      ) Move existing exports files to other path", default_value_t=str!(""))]
+    #[arg(       long, help="(Global      ) Move existing exports files to other path", default_value_t=str!(""))]
     exports: String,
 
     // Apply all optimizations
-    #[arg(short, long, help="· (Global      ) Apply all optimizations")]
+    #[arg(short, long, help="(Global      ) Apply all optimizations")]
     all: bool,
 
     // Optimizations
-    #[arg(short, long, help="· (Optimization) Remove unused Source files (MIDI, WAV)")]
+    #[arg(short, long, help="(Optimization) Remove unused Source files (MIDI, WAV)")]
     unused: bool,
 
-    #[arg(short, long, help="· (Optimization) Remove old plugin states (5% chance of breaking session??)")]
+    #[arg(short, long, help="(Optimization) Remove old plugin states (5% chance of breaking session??)")]
     states: bool,
 
-    #[arg(short, long, help="· (Optimization) Remove backup (.bak) of sessions")]
+    #[arg(short, long, help="(Optimization) Remove backup (.bak) of sessions")]
     backup: bool,
 
-    #[arg(long, help="· (Optimization) Remove history (.history) of sessions")]
+    #[arg(long, help="(Optimization) Remove history (.history) of sessions")]
     history: bool,
 
-    #[arg(short, long, help="· (Optimization) Remove analysis, dead, peaks folders")]
+    #[arg(short, long, help="(Optimization) Remove analysis, dead, peaks folders")]
     residuals: bool,
 }
 
@@ -78,7 +78,7 @@ fn main() {
                         // Optimization: Only match lines that contains sources extensions
                         if ! &sourcesExtensions.iter().any(|substring| line.contains(substring)) {continue;}
 
-                        // // Match for sources on Ardour session
+                        // Match for sources on Ardour session
                         for extension in &sourcesExtensions {
                             for capture in Regex::new(format!("name=\"(.*?){}\"", extension).as_str()).unwrap().captures_iter(&line) {
                                 sources.push(format!("{}{}", &capture[1], extension));
