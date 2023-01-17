@@ -6,8 +6,6 @@
 
 Ardour Session Minimizer, a small CLI tool to simplify (in size) an Ardour Session Folder by deleting unused sources (WAV, MIDI), old plugin states and _somewhat_ non important files.
 
-<br>
-
 # ● Installation
 
 ## ▸ Precompiled binary
@@ -15,9 +13,6 @@ Grab the latest binary release [here](https://github.com/BrokenSource/Ardmin/rel
 
 ## ▸ Running from the Source Code
 Head over to the [Protostar Monorepo](https://github.com/Tremeschin/Protostar) for instructions on bootstrapping and running the Projects.
-
-
-<br>
 
 # ● Usage
 
