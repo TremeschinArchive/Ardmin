@@ -4,7 +4,7 @@
     <h1>Ardmin</h1>
 </div>
 
-Ardour Session Minimizer, a blazing fast small CLI tool to simplify (in size) an Ardour Session Folder by deleting unused sources (WAV, MIDI), old plugin states and _somewhat_ non important files.
+Ardour Session Minimizer, a blazing fast small CLI tool to simplify (in size) music sessions folders by deleting unused sources (WAV, MIDI), old plugin states and _somewhat_ non important files.
 
 <sub><i><b>Note:</b> Backup, backup, backup, backup before using this tool.</i></sub>
 
