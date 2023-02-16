@@ -11,7 +11,7 @@ Ardmin, an Ardour Session Minimizer.
 (c) 2023 Tremeschin, AGPLv3-only License.";
 
 #[derive(Parser, Debug)]
-#[command(author=Protostar::Const::AUTHOR, about=Protostar::Const::ARDMIN, version)]
+#[command(author=Protostar::Const::AUTHOR, about=Protostar::Const::About::ARDMIN, version)]
 struct Args {
     #[arg(short, long, help="(Global      ) Path to a Folder of Ardour Sessions")]
     path: String,
