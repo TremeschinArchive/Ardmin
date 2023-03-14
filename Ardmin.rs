@@ -5,13 +5,8 @@ use Protostar::*;
 
 // -----------------------------------------------------------------------------------------------|
 
-const ABOUT: &str = "
-Ardmin, an Ardour Session Minimizer.
-
-(c) 2023 Tremeschin, AGPLv3-only License.";
-
 #[derive(Parser, Debug)]
-#[command(author=Protostar::Const::AUTHOR, about=Protostar::Const::About::ARDMIN, version)]
+#[command(author=Protostar::Constants::AUTHOR, about=Protostar::Constants::About::ARDMIN, version)]
 struct Args {
     #[arg(short, long, help="(Global      ) Path to a Folder of Ardour Sessions")]
     path: String,
@@ -111,6 +106,13 @@ fn main() {
                         Protostar::remove(stateFolder);
                     }
                 }
+            }
+        }
+
+        // Optimization: Move exports to other folder
+        if args.exports != str!("") {
+            for export in Protostar::betterGlob(session.join("export").join("*")) {
+                Protostar::moveFile(&export, &PathBuf::from(args.exports.clone()).join(export.file_name().unwrap()));
             }
         }
     }

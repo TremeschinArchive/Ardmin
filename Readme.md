@@ -30,6 +30,7 @@ Usage: Ardmin [OPTIONS] --path <PATH>
 
 Options:
   -p, --path <PATH>        (Global      ) Path to a Folder of Ardour Sessions
+      --exports <EXPORTS>  (Global      ) Move existing exports files to other path [default: ]
   -a, --all                (Global      ) Apply all optimizations
   -u, --unused             (Optimization) Remove unused Source files (MIDI, WAV)
   -s, --states             (Optimization) Remove old plugin states (5% chance of breaking per-plugin??)
@@ -40,11 +41,14 @@ Options:
   -V, --version            Print version
 ```
 
-Apply all optimizations possible:
+Apply all optimizations possible (except exports):
 - `./ardmin -p ~/Path/To/Ardour/Sessions -a`
 
 Apply only states and unused optimizations:
 - `./ardmin -p ~/Path/To/Ardour/Sessions -s -u`
+
+Move every export/* file from all sessions to some other directory
+- `./ardmin -p ~/Path/To/Ardour/Sessions --exports ~/Path/To/Exports/Only`
 
 # ● Warnings
 
