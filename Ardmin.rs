@@ -1,6 +1,5 @@
 // | (c) Tremeschin, AGPLv3-only License | Ardmin Project | //
 #![allow(non_snake_case)]
-extern crate Protostar;
 use Protostar::*;
 
 // -----------------------------------------------------------------------------------------------|
@@ -48,6 +47,7 @@ fn main() {
         let mut regrets: HashMap<&str, Regex> = HashMap::new();
         let mut sources: Vec<String> = vec!();
 
+        // Regex for different sources
         for extension in vec!(".mid", ".wav") {
             let regex = Regex::new(format!("name=\"(.*?){}\"", extension).as_str());
             regrets.insert(extension, regex.unwrap());
@@ -88,13 +88,13 @@ fn main() {
             }
         }
 
+        // Optimization: Remove old plugin states
         if args.states || args.all {
-            // Optimization: Remove old plugin states
             for pluginFolder in Protostar::betterGlob(session.join("plugins").join("*")) {
 
-                // Converts session/plugins/stateXYZ to i64 XYZ
-                let getState = |x: &PathBuf| {
-                    x.file_name().unwrap().to_str().unwrap().replace("state", "").parse().unwrap()
+                // Converts session/plugins/stateXYZ to <XYZ: i64>
+                let getState = |x: &PathBuf| -> i64 {
+                    x.file_name().unwrap().to_str().unwrap().replace("state", "").parse::<i64>().unwrap()
                 };
 
                 // The max allowed state
