@@ -2,10 +2,8 @@
 #![allow(non_snake_case)]
 use Protostar::*;
 
-// -----------------------------------------------------------------------------------------------|
-
-#[derive(Parser, Debug)]
-#[command(author=Protostar::Constants::AUTHOR, about=Protostar::Constants::About::ARDMIN, version)]
+#[derive(Parser)]
+#[command(about=Protostar::Constants::About::ARDMIN, version)]
 struct Args {
     #[arg(short, long, help="(Global      ) Path to a Folder of Ardour Sessions")]
     path: String,
@@ -25,13 +23,11 @@ struct Args {
     residuals: bool,
 }
 
-// -----------------------------------------------------------------------------------------------|
-
 fn main() {
     Protostar::setupLog();
     let args = Args::parse();
 
-    // Main "for each session"
+    // For each session folder in path
     for session in Protostar::betterGlob(PathBuf::from(args.path).join("*")) {
         if session.is_file() {continue;}
         info!(":: Optimizing session [{}]", session.display());
