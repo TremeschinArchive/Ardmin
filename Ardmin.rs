@@ -1,9 +1,8 @@
-// | (c) Tremeschin, AGPLv3-only License | Ardmin Project | //
 #![allow(non_snake_case)]
-use Protostar::*;
+use Broken::*;
 
 #[derive(Parser)]
-#[command(about=Protostar::Constants::About::ARDMIN, version)]
+#[command(about=Broken::Constants::About::ARDMIN, version)]
 struct Args {
     #[arg(short, long, help="(Global      ) Path to a Folder of Ardour Sessions")]
     path: String,
@@ -24,18 +23,18 @@ struct Args {
 }
 
 fn main() {
-    Protostar::setupLog();
+    Broken::setupLog();
     let args = Args::parse();
 
     // For each session folder in path
-    for session in Protostar::betterGlob(PathBuf::from(args.path).join("*")) {
+    for session in Broken::betterGlob(PathBuf::from(args.path).join("*")) {
         if session.is_file() {continue;}
         info!(":: Optimizing session [{}]", session.display());
 
         // Optimization: Remove analysis, dead, peaks
         if args.residuals || args.all {
             for folder in vec!("analysis", "dead", "peaks") {
-                Protostar::remove(session.join(&folder));
+                Broken::remove(session.join(&folder));
             }
         }
 
@@ -50,10 +49,10 @@ fn main() {
         }
 
         // Optimization: Remove .history or .backup or unused MIDI / WAV files
-        for file in Protostar::betterGlob(session.join("*")) {
+        for file in Broken::betterGlob(session.join("*")) {
             if let Some(ext) = file.extension() {
-                if (args.history || args.all) && (ext == "history") {Protostar::remove(file.clone())}
-                if (args.backup  || args.all) && (ext == "bak"    ) {Protostar::remove(file.clone())}
+                if (args.history || args.all) && (ext == "history") {Broken::remove(file.clone())}
+                if (args.backup  || args.all) && (ext == "bak"    ) {Broken::remove(file.clone())}
 
                 // Search for used MIDI sources
                 if (args.unused  || args.all) && (ext == "ardour" ) {
@@ -77,16 +76,16 @@ fn main() {
 
         // Recurse on interchange (sources) of session, remove files not listed in sources in any of .ardour sessions
         if args.unused || args.all {
-            for source in Protostar::betterGlob(session.join("interchange").join("**").join("*")) {
+            for source in Broken::betterGlob(session.join("interchange").join("**").join("*")) {
                 if source.is_file() && !sources.contains(&source.file_name().unwrap().to_str().unwrap().to_string()) {
-                    Protostar::remove(source)
+                    Broken::remove(source)
                 }
             }
         }
 
         // Optimization: Remove old plugin states
         if args.states || args.all {
-            for pluginFolder in Protostar::betterGlob(session.join("plugins").join("*")) {
+            for pluginFolder in Broken::betterGlob(session.join("plugins").join("*")) {
 
                 // Converts session/plugins/stateXYZ to <XYZ: i64>
                 let getState = |x: &PathBuf| -> i64 {
@@ -94,12 +93,12 @@ fn main() {
                 };
 
                 // The max allowed state
-                let maxState: i64 = Protostar::betterGlob(pluginFolder.join("*")).iter().map(|x| getState(x)).max().unwrap();
+                let maxState: i64 = Broken::betterGlob(pluginFolder.join("*")).iter().map(|x| getState(x)).max().unwrap();
 
                 // Delete folders that lag behind the max state
-                for stateFolder in Protostar::betterGlob(pluginFolder.join("*")) {
+                for stateFolder in Broken::betterGlob(pluginFolder.join("*")) {
                     if getState(&stateFolder) < maxState {
-                        Protostar::remove(stateFolder);
+                        Broken::remove(stateFolder);
                     }
                 }
             }
@@ -107,8 +106,8 @@ fn main() {
 
         // Optimization: Move exports to other folder
         if args.exports != str!("") {
-            for export in Protostar::betterGlob(session.join("export").join("*")) {
-                Protostar::moveFile(&export, &PathBuf::from(args.exports.clone()).join(export.file_name().unwrap()));
+            for export in Broken::betterGlob(session.join("export").join("*")) {
+                Broken::moveFile(&export, &PathBuf::from(args.exports.clone()).join(export.file_name().unwrap()));
             }
         }
     }

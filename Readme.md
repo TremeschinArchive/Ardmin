@@ -14,7 +14,7 @@ Ardour Session Minimizer, a blazing fast small CLI tool to simplify (in size) mu
 Grab the latest binary release [here](https://github.com/BrokenSource/Ardmin/releases/latest)
 
 ### ▸ Running from the Source Code
-Head over to the [Protostar Monorepo](https://github.com/Tremeschin/Protostar) for instructions on bootstrapping and running the Projects.
+Head over to the [BrokenSource](https://github.com/Tremeschin/BrokenSource) monorepo for instructions on running the Projects.
 
 # ● Usage
 
@@ -56,4 +56,4 @@ Move every export/* file from all sessions to some other directory
 
 # ● License
 
-AGPLv3-only License.
+AGPLv3-only License. See the [BrokenSource](https://github.com/Tremeschin/BrokenSource) for more details.
