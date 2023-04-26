@@ -2,7 +2,7 @@
 use Broken::*;
 
 #[derive(Parser)]
-#[command(about=Broken::Constants::About::ARDMIN, version)]
+#[command(about=Broken::Constants::About::Ardmin, version)]
 struct Args {
     #[arg(short, long, help="(Global      ) Path to a Folder of Ardour Sessions")]
     path: String,
